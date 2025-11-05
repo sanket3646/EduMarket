@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../lib/supabaseClient";
 
+interface Note {
+  id: string;
+  title: string;
+  description: string;
+  price?: number;
+  file_url: string;
+}
+
 interface Purchase {
   id: string;
   created_at: string;
-  notes?: {
-    id: string;
-    title: string;
-    description: string;
-    price?: number;
-    file_url: string;
-  };
+  notes?: Note;
 }
 
 export default function PurchasesPage() {
@@ -30,13 +32,12 @@ export default function PurchasesPage() {
         return;
       }
 
-      const user = userData?.user;
-      if (!user) {
+      const currentUser = userData?.user;
+      if (!currentUser) {
         router.push("/auth");
         return;
       }
-
-      setUser(user);
+      setUser(currentUser);
 
       const { data, error } = await supabase
         .from("purchases")
@@ -51,13 +52,29 @@ export default function PurchasesPage() {
             file_url
           )
         `)
-        .eq("user_id", user.id)
+        .eq("user_id", currentUser.id)
         .order("created_at", { ascending: false });
 
       if (error) {
         console.error("Error fetching purchases:", error.message);
       } else {
-        setPurchases((data as Purchase[]) || []);
+        // Map the data safely to Purchase[]
+        const formatted: Purchase[] = Array.isArray(data)
+          ? data.map((p: any) => ({
+              id: p.id,
+              created_at: p.created_at,
+              notes: p.notes
+                ? {
+                    id: p.notes.id,
+                    title: p.notes.title,
+                    description: p.notes.description,
+                    price: p.notes.price,
+                    file_url: p.notes.file_url,
+                  }
+                : undefined,
+            }))
+          : [];
+        setPurchases(formatted);
       }
 
       setLoading(false);

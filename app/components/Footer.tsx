@@ -9,7 +9,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ createPageUrl = (page) => `/${page.toLowerCase()}` }) => {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 text-white mt-20">
+    <footer className="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Branding */}
@@ -30,8 +30,8 @@ const Footer: React.FC<FooterProps> = ({ createPageUrl = (page) => `/${page.toLo
             <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href={createPageUrl("Materials")} className="text-gray-300 hover:text-white transition-colors">
-                  Browse Materials
+                <Link href={createPageUrl("Dashboard")} className="text-gray-300 hover:text-white transition-colors">
+                  Materials
                 </Link>
               </li>
               <li>

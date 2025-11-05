@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "./lib/supabaseClient";
-import { ADMIN_EMAIL } from "./lib/constants";
 import { motion } from "framer-motion";
 
 export default function HomePage() {
@@ -40,9 +39,9 @@ export default function HomePage() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full mb-6"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-300 rounded-full mb-6"
         >
-          <span className="text-sm font-medium text-indigo-600">
+          <span className="text-sm font-medium text-white">
             Premium Learning Platform
           </span>
         </motion.div>
@@ -88,7 +87,7 @@ export default function HomePage() {
           ) : (
             <button
               onClick={() => router.push("/dashboard")}
-              className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-lg hover:from-green-600 hover:to-green-700 transition font-medium"
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition font-medium"
             >
               Go to Dashboard
             </button>
@@ -117,26 +116,73 @@ export default function HomePage() {
         </motion.div>
       </div>
 
-      {/* Placeholder Stats Section */}
-      <section className="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-8">Our Stats</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {["10K+ Students", "500+ Materials", "50+ Subjects", "4.9 Rating"].map(
-              (stat, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <div className="text-4xl font-bold mb-2">{stat.split(" ")[0]}</div>
-                  <div>{stat.split(" ").slice(1).join(" ")}</div>
-                </motion.div>
-              )
-            )}
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12">
+            Why Choose <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">EduMarket</span>
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Expert Materials", desc: "Curated by educators and subject experts." },
+              { title: "Anytime Access", desc: "Learn at your own pace, on any device." },
+              { title: "Student Success", desc: "We prioritize your learning goals and achievements." }
+            ].map((feature, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.2 }}
+                className="bg-white p-6 rounded-2xl shadow-lg"
+              >
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* Expanded Stats Section */}
+      <section className="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-8">Our Achievements</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: "10K+", label: "Students" },
+              { value: "500+", label: "Materials" },
+              { value: "50+", label: "Subjects" },
+              { value: "4.9", label: "Average Rating" }
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-gray-200">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Call-to-action Section */}
+      <section className="py-20 bg-indigo-50 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          Ready to Start Learning?
+        </h2>
+        <p className="text-gray-700 mb-6">
+          Join EduMarket today and get instant access to premium study materials and expert guidance.
+        </p>
+        <button
+          onClick={() => router.push(user ? "/dashboard" : "/auth")}
+          className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition font-medium"
+        >
+          Get Started
+        </button>
       </section>
     </div>
   );

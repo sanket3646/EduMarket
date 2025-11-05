@@ -50,17 +50,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          
           <Link
             href="/"
             className="flex items-center gap-2 text-2xl font-bold"
           >
-            {/* Gradient Icon */}
             <span className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 p-1 rounded-xl flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-white" />
             </span>
-
-            {/* Gradient Text */}
             <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent text-xl">
               EduMarket
             </span>
@@ -94,7 +90,7 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:bg-red-600 transition"
+                className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition"
               >
                 Logout
               </button>
@@ -103,7 +99,10 @@ export default function Navbar() {
 
           {/* Mobile Hamburger */}
           <div className="md:hidden flex items-center ">
-            <button onClick={() => setMobileMenuOpen((prev) => !prev)} className="p-2 rounded-md hover:bg-white/20 transition">
+            <button
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="p-2 rounded-md hover:bg-white/20 transition"
+            >
               {mobileMenuOpen ? <X className="w-6 h-6 " /> : <Menu className="w-6 h-6 " />}
             </button>
           </div>
@@ -114,11 +113,11 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/20 shadow-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-t border-gray-200/50 z-50"
           >
             <div className="px-4 pt-4 pb-6 space-y-4 flex flex-col">
               {links.map((link) => {
@@ -154,7 +153,7 @@ export default function Navbar() {
                     handleLogout();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                  className="w-full px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition"
                 >
                   Logout
                 </button>
