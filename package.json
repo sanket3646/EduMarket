@@ -10,6 +10,9 @@
     "netlify-build": "next build"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.0",
     "@netlify/next": "^1.4.9",
     "@supabase/supabase-js": "^2.79.0",
     "clsx": "^2.1.1",
@@ -21,6 +24,7 @@
     "razorpay": "^2.9.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-icons": "^5.5.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
